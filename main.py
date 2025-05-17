@@ -152,4 +152,4 @@ def comparer_tris(fichier_csv):
 # Lancement automatique
 if __name__ == "__main__":
     lancer_programme("Paris 1er Arrondissement", "votre_fichier.csv", type_tri="fusion")
-    comparer_tris("votre_fichier.csv")
+    comparer_tris("communes-france-2025.csv")
