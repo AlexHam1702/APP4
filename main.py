@@ -34,7 +34,7 @@ def calculer_distance(lat1, lon1, lat2, lon2):
 
     return rayon_terre * c
 
-# Tri fusion (version simplifiée)
+# Tri fusion 
 def tri_fusion(tableau):
     if len(tableau) <= 1:
         return tableau
@@ -57,7 +57,7 @@ def fusionner_listes(gauche, droite):
     resultat += droite[j:]
     return resultat
 
-# Tri rapide (version simple avec pivot)
+# Tri rapide
 def tri_rapide(tableau):
     if len(tableau) <= 1:
         return tableau
@@ -149,7 +149,7 @@ def comparer_tris(fichier_csv):
     plt.grid(True)
     plt.show()
 
-# Lancement automatique
+# le main 
 if __name__ == "__main__":
     lancer_programme("Paris 1er Arrondissement", "votre_fichier.csv", type_tri="fusion")
     comparer_tris("communes-france-2025.csv")
