@@ -83,7 +83,7 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     villes = lire_donnees(fichier_csv)
     ville_ref = None
     for v in villes:
-        if v['nom'].lower() == nom_ville_reference.lower():
+        if v['nom_sans_accent'].lower() == nom_ville_reference.lower():
             ville_ref = v
             break
 
@@ -151,5 +151,5 @@ def comparer_tris(fichier_csv):
 
 # le main 
 if __name__ == "__main__":
-    lancer_programme("Paris 1er Arrondissement", "votre_fichier.csv", type_tri="fusion")
+    lancer_programme("Maisons-Alfort", "communes-france-2025.csv", type_tri="fusion")
     comparer_tris("communes-france-2025.csv")
