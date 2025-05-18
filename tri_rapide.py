@@ -1,4 +1,3 @@
-# Tri rapide
 def tri_rapide(tableau):
     if len(tableau) <= 1:
         return tableau
