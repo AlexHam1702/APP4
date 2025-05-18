@@ -10,17 +10,17 @@ def lire_donnees(fichier):
         lecteur = csv.DictReader(fichier_csv, delimiter=',')
         for ligne in lecteur:
             try:
-                nom = ligne['nom']
-                latitude = float(ligne['latitude'])
-                longitude = float(ligne['longitude'])
+                nom = ligne['nom_sans_accent']
+                latitude = float(ligne['latitude_mairie'])
+                longitude = float(ligne['longitude_mairie'])
                 liste_villes.append({'nom': nom, 'latitude': latitude, 'longitude': longitude})
             except:
-                continue  # On ignore les lignes avec des données manquantes
+                continue  # Ignore les lignes mal formées
     return liste_villes
 
 # Fonction pour calculer la distance entre deux points avec la formule de Haversine
 def calculer_distance(lat1, lon1, lat2, lon2):
-    rayon_terre = 6371  # en kilomètres
+    rayon_terre = 6371  # km
     lat1 = math.radians(lat1)
     lon1 = math.radians(lon1)
     lat2 = math.radians(lat2)
@@ -29,12 +29,12 @@ def calculer_distance(lat1, lon1, lat2, lon2):
     dlat = lat2 - lat1
     dlon = lon2 - lon1
 
-    a = math.sin(dlat/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin(dlon/2)**2
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
     return rayon_terre * c
 
-# Tri fusion 
+# Tri fusion
 def tri_fusion(tableau):
     if len(tableau) <= 1:
         return tableau
@@ -66,7 +66,7 @@ def tri_rapide(tableau):
     plus_grand = [x for x in tableau[1:] if x['distance'] > pivot]
     return tri_rapide(plus_petit) + [tableau[0]] + tri_rapide(plus_grand)
 
-# Calcul des statistiques : min, 1er quartile, médiane, max
+# Calcul des statistiques
 def calculer_statistiques(villes_traitees):
     distances = [v['distance'] for v in villes_traitees]
     distances.sort()
@@ -78,12 +78,16 @@ def calculer_statistiques(villes_traitees):
         'max': distances[-1]
     }
 
-# Fonction principale (charger, calculer, trier, afficher)
+# Fonction principale
 def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     villes = lire_donnees(fichier_csv)
+    if not villes:
+        print("Aucune ville chargée. Vérifiez le fichier CSV.")
+        return
+
     ville_ref = None
     for v in villes:
-        if v['nom_sans_accent'].lower() == nom_ville_reference.lower():
+        if v['nom'].lower() == nom_ville_reference.lower():
             ville_ref = v
             break
 
@@ -91,14 +95,14 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
         print("La ville de référence n'a pas été trouvée.")
         return
 
-    # Calcule de la distance de chaque ville par rapport à la ville de référence
+    # Calcul de distance
     for v in villes:
         v['distance'] = calculer_distance(
             ville_ref['latitude'], ville_ref['longitude'],
             v['latitude'], v['longitude']
         )
 
-    # On trie selon le type choisi
+    # Tri
     debut = time.time()
     if type_tri == "fusion":
         resultat = tri_fusion(villes)
@@ -106,7 +110,7 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
         resultat = tri_rapide(villes)
     fin = time.time()
 
-    # Affichage des statistiques
+    # Statistiques
     stats = calculer_statistiques(resultat)
     print(f"\n--- Statistiques depuis {nom_ville_reference} ---")
     print(f"Distance minimale : {stats['min']:.2f} km")
@@ -115,13 +119,17 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     print(f"Distance maximale : {stats['max']:.2f} km")
     print(f"Tri utilisé : {type_tri} | Durée : {fin - debut:.4f} secondes")
 
-# Comparaison du tri fusion et du tri rapide en fonction de la taille
+# Comparaison des tris
 def comparer_tris(fichier_csv):
     tailles = [100, 500, 1000, 2000]
     temps_fusion = []
     temps_rapide = []
 
     toutes_les_villes = lire_donnees(fichier_csv)
+    if not toutes_les_villes:
+        print("Erreur : fichier CSV vide ou invalide.")
+        return
+
     ville_ref = toutes_les_villes[0]
 
     for taille in tailles:
