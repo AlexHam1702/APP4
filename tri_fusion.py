@@ -1,4 +1,3 @@
-# Tri fusion
 def tri_fusion(tableau):
     if len(tableau) <= 1:
         return tableau
