@@ -78,7 +78,7 @@ def calculer_statistiques(villes_traitees):
         'max': distances[-1]
     }
 
-# Fonction principale pour tout faire (charger, calculer, trier, afficher)
+# Fonction principale (charger, calculer, trier, afficher)
 def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     villes = lire_donnees(fichier_csv)
     ville_ref = None
@@ -91,7 +91,7 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
         print("La ville de référence n'a pas été trouvée.")
         return
 
-    # On calcule la distance de chaque ville par rapport à la ville de référence
+    # Calcule de la distance de chaque ville par rapport à la ville de référence
     for v in villes:
         v['distance'] = calculer_distance(
             ville_ref['latitude'], ville_ref['longitude'],
@@ -149,7 +149,7 @@ def comparer_tris(fichier_csv):
     plt.grid(True)
     plt.show()
 
-# le main 
+# main 
 if __name__ == "__main__":
     lancer_programme("Maisons-Alfort", "communes-france-2025.csv", type_tri="fusion")
     comparer_tris("communes-france-2025.csv")
