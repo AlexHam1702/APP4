@@ -1,3 +1,4 @@
+import csv
 def lire_donnees(fichier):
     liste_villes = []
     with open(fichier, 'r', encoding='utf-8') as fichier_csv:

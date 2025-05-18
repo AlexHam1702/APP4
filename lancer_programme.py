@@ -1,4 +1,11 @@
-def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
+from lire_donnees import lire_donnees
+from calculer_distance import calculer_distance
+from tri_fusion import tri_fusion
+import time as time
+from calculer_statistiques import calculer_statistiques
+from tri_rapide import tri_rapide
+import matplotlib.pyplot as plt
+def lancerProgramme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     villes = lire_donnees(fichier_csv)
     if not villes:
         print("Aucune ville chargée. Vérifiez le fichier CSV.")
@@ -30,13 +37,11 @@ def lancer_programme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     fin = time.time()
 
     # Statistiques
-    stats = calculer_statistiques(resultat)
-    print(f"\n--- Statistiques depuis {nom_ville_reference} ---")
-    print(f"Distance minimale : {stats['min']:.2f} km")
-    print(f"Premier quartile : {stats['q1']:.2f} km")
-    print(f"Médiane : {stats['mediane']:.2f} km")
-    print(f"Distance maximale : {stats['max']:.2f} km")
-    print(f"Tri utilisé : {type_tri} | Durée : {fin - debut:.4f} secondes")
+    mini, q1, mediane, maxi = calculer_statistiques(resultat)
+    print(f"Distance minimale : {mini:.2f} km")
+    print(f"Premier quartile : {q1:.2f} km")
+    print(f"Médiane : {mediane:.2f} km")
+    print(f"Distance maximale : {maxi:.2f} km")
 
 # Comparaison des tris
 def comparer_tris(fichier_csv):
