@@ -1,4 +1,3 @@
-# Fonction pour calculer la distance entre deux points avec la formule de Haversine
 def calculer_distance(lat1, lon1, lat2, lon2):
     rayon_terre = 6371  # km
     lat1 = math.radians(lat1)
