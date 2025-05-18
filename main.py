@@ -3,36 +3,6 @@ import math
 import time
 import matplotlib.pyplot as plt
 
-# Fonction pour lire les données du fichier CSV
-def lire_donnees(fichier):
-    liste_villes = []
-    with open(fichier, 'r', encoding='utf-8') as fichier_csv:
-        lecteur = csv.DictReader(fichier_csv, delimiter=',')
-        for ligne in lecteur:
-            try:
-                nom = ligne['nom_sans_accent']
-                latitude = float(ligne['latitude_mairie'])
-                longitude = float(ligne['longitude_mairie'])
-                liste_villes.append({'nom': nom, 'latitude': latitude, 'longitude': longitude})
-            except:
-                continue  # Ignore les lignes mal formées
-    return liste_villes
-
-# Fonction pour calculer la distance entre deux points avec la formule de Haversine
-def calculer_distance(lat1, lon1, lat2, lon2):
-    rayon_terre = 6371  # km
-    lat1 = math.radians(lat1)
-    lon1 = math.radians(lon1)
-    lat2 = math.radians(lat2)
-    lon2 = math.radians(lon2)
-
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-
-    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-    return rayon_terre * c
 
 # Tri fusion
 def tri_fusion(tableau):
