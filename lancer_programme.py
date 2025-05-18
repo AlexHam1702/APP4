@@ -37,11 +37,11 @@ def lancerProgramme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     fin = time.time()
 
     # Statistiques
-    mini, q1, mediane, maxi = calculer_statistiques(resultat)
-    print(f"Distance minimale : {mini:.2f} km")
-    print(f"Premier quartile : {q1:.2f} km")
-    print(f"Médiane : {mediane:.2f} km")
-    print(f"Distance maximale : {maxi:.2f} km")
+    mini, q1, mediane, maxi, villeMini, villeQ1, villeMediane, villeMaxi = calculer_statistiques(resultat)
+    print(f"Distance minimale : {mini:.2f} km : {villeMini['nom']}")
+    print(f"Premier quartile : {q1:.2f} km: {villeQ1['nom']}")
+    print(f"Médiane : {mediane:.2f} km: {villeMediane['nom']}")
+    print(f"Distance maximale : {maxi:.2f} km: {villeMaxi['nom']}")
 
 # Comparaison des tris
 def comparer_tris(fichier_csv):
