@@ -42,6 +42,7 @@ def lancerProgramme(nom_ville_reference, fichier_csv, type_tri="fusion"):
     print(f"Premier quartile : {q1:.2f} km: {villeQ1['nom']}")
     print(f"Médiane : {mediane:.2f} km: {villeMediane['nom']}")
     print(f"Distance maximale : {maxi:.2f} km: {villeMaxi['nom']}")
+    print(f"Tri utilisé : {type_tri} | Durée  : {fin - debut:.4f} secondes")
 
 # Comparaison des tris
 def comparer_tris(fichier_csv):
