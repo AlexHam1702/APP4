@@ -1,4 +1,5 @@
 from fusionner_listes import fusionner_listes
+#fusion
 def tri_fusion(tableau):
     if len(tableau) <= 1:
         return tableau
